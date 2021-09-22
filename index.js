@@ -1,6 +1,7 @@
 const discord = require('discord.js')
-const client = new discord.Client()
+const client = new discord.Client({ intents: [discord.Intents.FLAGS.GUILDS, discord.Intents.FLAGS.GUILD_MESSAGES] });
 var prefix = "."
+var config = require('./config.json')
 // const yt = require('ytdl-core')
 
 client.on('connect', () => {
@@ -19,7 +20,7 @@ client.on('message', message => {
 
     if (message.content === `${prefix}join`) {
         if (message.author.voice.channel) {
-            const connection = await message.author.voice.channel.connect()
+            const connection = message.author.voice.channel.connect()
             message.channel.send(`Joined ${message.author.voice.channel}`);
         } else {
             message.reply("Connect to a VC First!");
@@ -33,4 +34,4 @@ client.on('message', message => {
     }
 });
 
-client.login('token')
+client.login(config.token)
