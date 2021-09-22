@@ -12,7 +12,7 @@ client.on('ready', () => {
     console.log("Logged in.")
 });
 
-client.on('message', message => {
+client.on('messageCreate', message => {
     if (message.content === `${client.user.tag}`) {
         message.reply(`Hello ${message.author.tag}, my prefix is ${prefix}`);
     }
