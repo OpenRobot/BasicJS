@@ -19,9 +19,9 @@ client.on('messageCreate', message => {
     if (!message.guild) return;
 
     if (message.content === `${prefix}join`) {
-        if (message.author.voice.channel) {
-            const connection = message.author.voice.channel.connect()
-            message.channel.send(`Joined ${message.author.voice.channel}`);
+        if (message.member.voice.channel) {
+            const connection = message.member.voice.channel.join()
+            message.channel.send(`Joined ${message.member.voice.channel}`);
         } else {
             message.reply("Connect to a VC First!");
         }
