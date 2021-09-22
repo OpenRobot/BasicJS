@@ -9,10 +9,10 @@ Self hosting will not be helped by the OpenRobot team, but here are the things y
 Software: <br>
 Node v16.6+ (Just get the latest node) <br>
 npm (comes with the node so dont worry) <br>
-[Install Node from nodejs.org](https://nodejs.org)
+[Install Node from nodejs.org](https://nodejs.org) <br>
 <br>
 Packages: <br>
-discord.js v13+ (you can just do "npm install discord.js" to get the latest)<br>
-
-Addition files for setup:
-config.json (put your bot token in that file)
+discord.js v13+ (you can just do "npm install discord.js" to get the latest) <br>
+<br>
+Additional files for setup: <br>
+config.json (put your bot token in that file) <br>
