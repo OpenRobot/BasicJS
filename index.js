@@ -14,25 +14,19 @@ client.on('ready', async () => {
     console.log("Deployed slash commands.")
 });
 
-client.on('messageCreate', message => {
-    if (message.content === `${client.user.tag}`) {
-        message.reply(`Hello ${message.author.tag}, my prefix is ${prefix}`);
-    }
+client.on('messageCreate', async message => {
+    if (message.content === `${client.user.tag}`) await message.reply(`Hello ${message.author.tag}, my prefix is ${prefix}`);
+    if (message.content === `${prefix}ping`) await message.reply("Pong!")
+    if (message.content === `${prefix}pong`) await message.reply("Ping!")
     if (!message.guild) return;
 
     if (message.content === `${prefix}join`) {
         if (message.member.voice.channel) {
-            const connection = message.member.voice.channel.join()
-            message.channel.send(`Joined ${message.member.voice.channel}`);
+            const connection = await message.member.voice.channel.join()
+            await message.reply(`Joined ${message.member.voice.channel}`);
         } else {
-            message.reply("Connect to a VC First!");
+            await message.reply("Connect to a VC First!");
         }
-    }
-    if (message.content === `${prefix}ping`) {
-        message.reply("Pong!")
-    }
-    if (message.content === `${prefix}pong`) {
-        message.reply("Ping!")
     }
 });
 
@@ -42,7 +36,7 @@ client.on('interactionCreate', async interaction => {
     if (interaction.commandName === 'join') {
         if (interaction.message.member.voice.channel) {
             const connection = interaction.message.member.voice.channel.join()
-            interaction.reply(`Joined ${message.member.voice.channel}`);
+            interaction.reply(`Joined ${interaction.message.member.voice.channel}`);
         } else {
             interaction.reply("Connect to a VC First!");
         }
@@ -64,7 +58,7 @@ async function deploy_slash() {
             description: "Joins your current voice channel!"
         }
     ]
-    const commands = await client.application?.commands.set(slash_commands);
+    await client.application?.commands.set(slash_commands);
 }
 
 client.login(config.token)
