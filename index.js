@@ -8,8 +8,10 @@ client.on('connect', () => {
     console.log("Connected to Discord but not yet ready.")
 });
 
-client.on('ready', () => {
+client.on('ready', async () => {
     console.log("Logged in.")
+    await deploy_slash()
+    console.log("Deployed slash commands.")
 });
 
 client.on('messageCreate', message => {
@@ -33,5 +35,36 @@ client.on('messageCreate', message => {
         message.reply("Ping!")
     }
 });
+
+client.on('interactionCreate', async interaction => {
+    if (interaction.commandName === 'ping') await interaction.reply('Pong!');
+    if (interaction.commandName === 'pong') await interaction.reply('Ping!');
+    if (interaction.commandName === 'join') {
+        if (interaction.message.member.voice.channel) {
+            const connection = interaction.message.member.voice.channel.join()
+            interaction.reply(`Joined ${message.member.voice.channel}`);
+        } else {
+            interaction.reply("Connect to a VC First!");
+        }
+    } 
+})
+
+async function deploy_slash() {
+    slash_commands = [
+        {
+            name: "ping",
+            description: "Replies with Pong!"
+        },
+        {
+            name: "pong",
+            description: "Replies with Ping!"
+        },
+        {
+            name: "join",
+            description: "Joins your current voice channel!"
+        }
+    ]
+    const commands = await client.application?.commands.set(slash_commands);
+}
 
 client.login(config.token)
